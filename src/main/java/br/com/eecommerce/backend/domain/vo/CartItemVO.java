@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class CartItemVO {
 
     private Long id;
-    private Product product;
+    private ProductVO product;
     private Integer quantity;
 }
