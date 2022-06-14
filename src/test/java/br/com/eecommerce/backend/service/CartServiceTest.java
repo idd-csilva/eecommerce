@@ -58,18 +58,20 @@ class CartServiceTest {
                 .id(1L)
                 .totalAmount(BigDecimal.ZERO)
                 .build();
-        final var product = ProductMapper.INSTANCE.productVOToProduct(productVO);
-        final var cartItem = CartItemsMapper.INSTANCE.cartItemVOToCartItem(cartItemVO);
+        final var product =
+                ProductMapper.INSTANCE.productVOToProduct(productVO);
+        final var cartItem =
+                CartItemsMapper.INSTANCE.cartItemVOToCartItem(cartItemVO);
 
-        BDDMockito.given(productRepository.findById(1L)).willReturn(Optional.of(product));
+        BDDMockito.given(productRepository.findById(product.getId())).willReturn(Optional.of(product));
         BDDMockito.given(cartItemRepository.save(cartItem)).willReturn(cartItem);
-        BDDMockito.given(cartRepository.findById(1L)).willReturn(
-                Optional.of(cart)
-        );
+        BDDMockito.given(cartRepository.findById(cart.getId())).willReturn(Optional.of(cart));
 
-        final CartVO cartVO = cartService.addItemsToCart(1L, CartItemVO.builder().build());
+        final CartVO cartVO =
+                cartService.addItemsToCart(cart.getId(), cartItemVO);
 
         BDDMockito.verify(cartRepository, Mockito.times(1)).save(BDDMockito.any());
-        Assertions.assertNull(cartVO);
+        Assertions.assertNotNull(cartVO);
+        Assertions.assertEquals(BigDecimal.valueOf(50), cartVO.getTotalAmount());
     }
 }

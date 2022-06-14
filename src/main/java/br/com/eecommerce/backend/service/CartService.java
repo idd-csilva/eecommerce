@@ -14,6 +14,7 @@ import br.com.eecommerce.backend.domain.repository.ProductRepository;
 import br.com.eecommerce.backend.domain.vo.CartItemVO;
 import br.com.eecommerce.backend.domain.vo.CartVO;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,10 @@ public class CartService {
 
         final Cart entity =
                 cartRepository.findById(cartId).orElseThrow();
+
+        if (entity.getCartItems() == null) {
+            entity.setCartItems(new ArrayList<>());
+        }
 
         entity.getCartItems().add(cartItem);
         entity.setTotalAmount(entity.getTotalAmount().add(product.getPrice().multiply(BigDecimal.valueOf(cartItem.getQuantity()))));
