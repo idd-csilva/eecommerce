@@ -1,9 +1,7 @@
 package br.com.eecommerce.backend.controller;
 
-import br.com.eecommerce.backend.domain.vo.CartVO;
 import br.com.eecommerce.backend.domain.vo.ProductVO;
-import br.com.eecommerce.backend.service.CartService;
-import br.com.eecommerce.backend.service.ProductService;
+import br.com.eecommerce.backend.domain.component.ProductComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductsController {
 
     @Autowired
-    private ProductService productService;
+    private ProductComponent productComponent;
 
     @PostMapping
     public ResponseEntity<ProductVO> create(@RequestBody final ProductVO productVO) {
-        return ResponseEntity.ok(productService.create(productVO));
+        return ResponseEntity.ok(productComponent.create(productVO));
     }
 
     @GetMapping("/{productId}")
     public ResponseEntity<ProductVO> findById(@PathVariable final Long productId) {
-        return ResponseEntity.ok(productService.findById(productId));
+        return ResponseEntity.ok(productComponent.findById(productId));
     }
 }

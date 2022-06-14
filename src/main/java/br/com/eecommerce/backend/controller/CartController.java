@@ -2,8 +2,10 @@ package br.com.eecommerce.backend.controller;
 
 import br.com.eecommerce.backend.domain.vo.CartItemVO;
 import br.com.eecommerce.backend.domain.vo.CartVO;
-import br.com.eecommerce.backend.domain.vo.CustomerVO;
-import br.com.eecommerce.backend.service.CartService;
+import br.com.eecommerce.backend.domain.component.CartComponent;
+import br.com.eecommerce.backend.service.cart.AddCartItemsService;
+import br.com.eecommerce.backend.service.cart.CreateCartService;
+import br.com.eecommerce.backend.service.cart.FindCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,16 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
 
     @Autowired
-    private CartService cartService;
+    private CreateCartService createCartService;
+
+    @Autowired
+    private CartComponent cartComponent;
+
+    @Autowired
+    private AddCartItemsService addCartItemsService;
 
     @PostMapping
     public ResponseEntity<CartVO> create(@RequestBody final CartVO cartVO) {
-        return ResponseEntity.ok(cartService.create(cartVO));
+        return ResponseEntity.ok(createCartService.create(cartVO));
     }
 
     @GetMapping("/{cartId}")
     public ResponseEntity<CartVO> findById(@PathVariable final Long cartId) {
-        return ResponseEntity.ok(cartService.findById(cartId));
+        return ResponseEntity.ok(cartComponent.findById(cartId));
     }
 
     @PostMapping("/{cartId}/items")
@@ -35,6 +43,6 @@ public class CartController {
             @PathVariable final Long cartId,
             @RequestBody final CartItemVO cartItemVO
     ) {
-        return ResponseEntity.ok(cartService.addItemsToCart(cartId, cartItemVO));
+        return ResponseEntity.ok(addCartItemsService.addItem(cartId, cartItemVO));
     }
 }
