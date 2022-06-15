@@ -1,8 +1,8 @@
-package br.com.eecommerce.backend.domain.vo;
+package br.com.eecommerce.backend.domain.patterns.dto;
 
+import br.com.eecommerce.backend.domain.patterns.bo.ProductBO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,14 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductVO {
+public class CartAddItemDto {
 
     private Long id;
 
-    private String name;
-
-    private BigDecimal price;
-
-    @JsonProperty("stock_counter")
-    private Integer stockCounter;
+    @JsonProperty("product_id")
+    private Long productId;
+    private Integer quantity;
 }

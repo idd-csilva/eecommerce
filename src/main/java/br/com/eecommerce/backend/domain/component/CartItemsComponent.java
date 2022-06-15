@@ -3,7 +3,7 @@ package br.com.eecommerce.backend.domain.component;
 import br.com.eecommerce.backend.domain.mapper.CartItemsMapper;
 import br.com.eecommerce.backend.domain.model.CartItem;
 import br.com.eecommerce.backend.domain.repository.CartItemRepository;
-import br.com.eecommerce.backend.domain.vo.CartItemVO;
+import br.com.eecommerce.backend.domain.patterns.bo.CartItemBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,18 +13,18 @@ public class CartItemsComponent {
     @Autowired
     private CartItemRepository cartItemRepository;
 
-    public CartItemVO create(final CartItemVO cartItemVO) {
+    public CartItemBO create(final CartItemBO cartItemBO) {
         final CartItem entity =
-                cartItemRepository.save(CartItemsMapper.INSTANCE.cartItemVOToCartItem(cartItemVO));
+                cartItemRepository.save(CartItemsMapper.INSTANCE.cartItemVOToCartItem(cartItemBO));
 
         return cartItemToCartItemVO(entity);
     }
 
-    private CartItemVO cartItemToCartItemVO(final CartItem entity) {
+    private CartItemBO cartItemToCartItemVO(final CartItem entity) {
         return CartItemsMapper.INSTANCE.catItemToCartItemVO(entity);
     }
 
-    public CartItemVO findById(final Long cartItemId) {
+    public CartItemBO findById(final Long cartItemId) {
         final CartItem entity = cartItemRepository.findById(cartItemId).orElseThrow();
 
         return cartItemToCartItemVO(entity);

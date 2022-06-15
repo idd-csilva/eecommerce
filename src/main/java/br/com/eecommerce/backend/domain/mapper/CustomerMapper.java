@@ -1,7 +1,7 @@
 package br.com.eecommerce.backend.domain.mapper;
 
 import br.com.eecommerce.backend.domain.model.Customer;
-import br.com.eecommerce.backend.domain.vo.CustomerVO;
+import br.com.eecommerce.backend.domain.patterns.bo.CustomerBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,7 +10,7 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
-    CustomerVO customerToCustomerVO(Customer customer);
+    CustomerBO customerToCustomerVO(Customer customer);
 
-    Customer customerVOToCustomer(CustomerVO customer);
+    Customer customerVOToCustomer(CustomerBO customer);
 }

@@ -1,4 +1,4 @@
-package br.com.eecommerce.backend.domain.vo;
+package br.com.eecommerce.backend.domain.patterns.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,14 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CustomerVO {
-    private Long id;
+public class CartCreateDto {
 
-    @JsonProperty("first_name")
-    private String firstName;
-
-    @JsonProperty("last_name")
-    private String lastName;
-
-    private String email;
+    @JsonProperty("customer_id")
+    private Long customerId;
 }

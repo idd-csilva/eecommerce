@@ -1,7 +1,7 @@
 package br.com.eecommerce.backend.domain.mapper;
 
 import br.com.eecommerce.backend.domain.model.Cart;
-import br.com.eecommerce.backend.domain.vo.CartVO;
+import br.com.eecommerce.backend.domain.patterns.bo.CartBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,7 +10,7 @@ public interface CartMapper {
 
     CartMapper INSTANCE = Mappers.getMapper(CartMapper.class);
 
-    CartVO cartToCartVO(Cart cart);
+    CartBO cartToCartVO(Cart cart);
 
-    Cart cartVOToCart(CartVO cartVO);
+    Cart cartVOToCart(CartBO cartBO);
 }

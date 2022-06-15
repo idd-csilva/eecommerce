@@ -1,6 +1,6 @@
 package br.com.eecommerce.backend.controller;
 
-import br.com.eecommerce.backend.domain.vo.CustomerVO;
+import br.com.eecommerce.backend.domain.patterns.bo.CustomerBO;
 import br.com.eecommerce.backend.domain.component.CustomerComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class CustomerController {
     private CustomerComponent customerComponent;
 
     @PostMapping
-    public ResponseEntity<CustomerVO> create(@RequestBody final CustomerVO customerVO) {
-        return ResponseEntity.ok(customerComponent.create(customerVO));
+    public ResponseEntity<CustomerBO> create(@RequestBody final CustomerBO customerBO) {
+        return ResponseEntity.ok(customerComponent.create(customerBO));
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerVO> findById(@PathVariable final Long customerId) {
+    public ResponseEntity<CustomerBO> findById(@PathVariable final Long customerId) {
         return ResponseEntity.ok(customerComponent.findById(customerId));
     }
 }

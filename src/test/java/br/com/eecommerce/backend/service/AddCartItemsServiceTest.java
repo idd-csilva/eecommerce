@@ -3,22 +3,17 @@ package br.com.eecommerce.backend.service;
 import br.com.eecommerce.backend.domain.component.CartComponent;
 import br.com.eecommerce.backend.domain.component.CartItemsComponent;
 import br.com.eecommerce.backend.domain.component.ProductComponent;
-import br.com.eecommerce.backend.domain.mapper.CartItemsMapper;
-import br.com.eecommerce.backend.domain.mapper.ProductMapper;
-import br.com.eecommerce.backend.domain.model.Cart;
-import br.com.eecommerce.backend.domain.vo.CartItemVO;
-import br.com.eecommerce.backend.domain.vo.CartVO;
-import br.com.eecommerce.backend.domain.vo.ProductVO;
+import br.com.eecommerce.backend.domain.patterns.bo.CartBO;
+import br.com.eecommerce.backend.domain.patterns.bo.CartItemBO;
+import br.com.eecommerce.backend.domain.patterns.bo.ProductBO;
 import br.com.eecommerce.backend.service.cart.AddCartItemsService;
 import java.math.BigDecimal;
-import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -40,17 +35,17 @@ class AddCartItemsServiceTest {
 
     @Test
     void shouldCalculateAmountProperly() {
-        final var productVO = ProductVO.builder()
+        final var productVO = ProductBO.builder()
                 .id(1L)
                 .name("Teste")
                 .price(BigDecimal.TEN)
                 .stockCounter(10)
                 .build();
-        final var cartVO = CartVO.builder()
+        final var cartVO = CartBO.builder()
                 .id(1L)
                 .totalAmount(BigDecimal.ZERO)
                 .build();
-        final var cartItemVO = CartItemVO.builder()
+        final var cartItemVO = CartItemBO.builder()
                 .id(1L)
                 .product(productVO)
                 .quantity(5)
@@ -61,7 +56,7 @@ class AddCartItemsServiceTest {
         BDDMockito.given(cartItemsComponent.create(cartItemVO)).willReturn(cartItemVO);
         BDDMockito.given(cartComponent.update(cartVO)).willReturn(cartVO);
 
-        final CartVO result = addCartItemsService.addItem(cartVO.getId(), cartItemVO);
+        final CartBO result = addCartItemsService.addItem(cartVO.getId(), cartItemVO);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(BigDecimal.valueOf(50), result.getTotalAmount());

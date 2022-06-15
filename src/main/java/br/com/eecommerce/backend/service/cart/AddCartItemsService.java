@@ -3,12 +3,10 @@ package br.com.eecommerce.backend.service.cart;
 import br.com.eecommerce.backend.domain.component.CartComponent;
 import br.com.eecommerce.backend.domain.component.CartItemsComponent;
 import br.com.eecommerce.backend.domain.component.ProductComponent;
-import br.com.eecommerce.backend.domain.vo.CartItemVO;
-import br.com.eecommerce.backend.domain.vo.CartVO;
-import br.com.eecommerce.backend.domain.vo.ProductVO;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Optional;
+import br.com.eecommerce.backend.domain.patterns.bo.CartBO;
+import br.com.eecommerce.backend.domain.patterns.bo.CartItemBO;
+import br.com.eecommerce.backend.domain.patterns.bo.ProductBO;
+import br.com.eecommerce.backend.domain.patterns.dto.CartAddItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,25 +22,18 @@ public class AddCartItemsService {
     @Autowired
     private ProductComponent productComponent;
 
-    public CartVO addItem(final Long cartId, final CartItemVO cartItemVO) {
-        final ProductVO productVO = productComponent.findById(cartItemVO.getProduct().getId());
-        final CartVO cartVO = cartComponent.findById(cartId);
+    public CartBO addItem(final Long cartId, final CartAddItemDto cartAddItemDto) {
+        final ProductBO productBO = productComponent.findById(cartAddItemDto.getProductId());
+        final CartItemBO cartItemBO = CartItemBO.builder()
+                .product(productBO)
+                .quantity(cartAddItemDto.getQuantity())
+                .build();
 
-        cartItemVO.setProduct(productVO);
-        final CartItemVO addedCartItem = cartItemsComponent.create(cartItemVO);
+        final CartBO cartBO = cartComponent.findById(cartId);
 
-        cartVO.setCartItems(Optional.ofNullable(cartVO.getCartItems()).orElse(new ArrayList<>()));
-        cartVO.getCartItems().add(addedCartItem);
-        cartVO.setTotalAmount(calculateAmount(cartVO, cartItemVO));
+        cartBO.addItem(cartItemBO);
+        cartBO.calculateAmount(cartItemBO);
 
-        return cartComponent.update(cartVO);
-    }
-
-    private BigDecimal calculateAmount(final CartVO cartVO, final CartItemVO cartItemVO) {
-        final BigDecimal productPrice = cartItemVO.getProduct().getPrice();
-        final BigDecimal productQuantity = BigDecimal.valueOf(cartItemVO.getQuantity());
-        final BigDecimal cartCurrentAmount = cartVO.getTotalAmount();
-
-        return cartCurrentAmount.add(productPrice.multiply(productQuantity));
+        return cartComponent.update(cartBO);
     }
 }

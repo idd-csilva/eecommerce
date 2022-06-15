@@ -1,6 +1,5 @@
-package br.com.eecommerce.backend.domain.vo;
+package br.com.eecommerce.backend.domain.patterns.bo;
 
-import br.com.eecommerce.backend.domain.model.Product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CartItemVO {
+public class CartItemBO {
 
     private Long id;
-    private ProductVO product;
+    private ProductBO product;
     private Integer quantity;
 }

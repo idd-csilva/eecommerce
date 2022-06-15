@@ -1,6 +1,6 @@
 package br.com.eecommerce.backend.controller;
 
-import br.com.eecommerce.backend.domain.vo.ProductVO;
+import br.com.eecommerce.backend.domain.patterns.bo.ProductBO;
 import br.com.eecommerce.backend.domain.component.ProductComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class ProductsController {
     private ProductComponent productComponent;
 
     @PostMapping
-    public ResponseEntity<ProductVO> create(@RequestBody final ProductVO productVO) {
-        return ResponseEntity.ok(productComponent.create(productVO));
+    public ResponseEntity<ProductBO> create(@RequestBody final ProductBO productBO) {
+        return ResponseEntity.ok(productComponent.create(productBO));
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductVO> findById(@PathVariable final Long productId) {
+    public ResponseEntity<ProductBO> findById(@PathVariable final Long productId) {
         return ResponseEntity.ok(productComponent.findById(productId));
     }
 }
