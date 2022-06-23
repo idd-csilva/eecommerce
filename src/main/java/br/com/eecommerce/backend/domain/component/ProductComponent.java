@@ -14,13 +14,13 @@ public class ProductComponent {
     private ProductRepository productRepository;
 
     public ProductBO create(final ProductBO productBO) {
-        final Product entity = productRepository.save(ProductMapper.INSTANCE.productVOToProduct(productBO));
+        final Product entity = productRepository.save(ProductMapper.INSTANCE.productBOToProduct(productBO));
 
         return productToProductVO(entity);
     }
 
     private ProductBO productToProductVO(final Product entity) {
-        return ProductMapper.INSTANCE.productToProductVO(entity);
+        return ProductMapper.INSTANCE.productToProductBO(entity);
     }
 
     public ProductBO findById(final Long productId) {

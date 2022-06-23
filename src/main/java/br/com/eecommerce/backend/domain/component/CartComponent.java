@@ -15,13 +15,13 @@ public class CartComponent {
 
     public CartBO create(final CartBO cartBO) {
         final Cart entity =
-                cartRepository.save(CartMapper.INSTANCE.cartVOToCart(cartBO));
+                cartRepository.save(CartMapper.INSTANCE.cartBOToCart(cartBO));
 
         return cartToCartVO(entity);
     }
 
     private CartBO cartToCartVO(final Cart entity) {
-        return CartMapper.INSTANCE.cartToCartVO(entity);
+        return CartMapper.INSTANCE.cartToCartBO(entity);
     }
 
     public CartBO findById(final Long cartId) {
@@ -32,7 +32,7 @@ public class CartComponent {
 
     public CartBO update(final CartBO cartBO) {
         final Cart entity =
-                cartRepository.save(CartMapper.INSTANCE.cartVOToCart(cartBO));
+                cartRepository.save(CartMapper.INSTANCE.cartBOToCart(cartBO));
 
         return cartToCartVO(entity);
     }

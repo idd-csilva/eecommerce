@@ -15,13 +15,13 @@ public class CartItemsComponent {
 
     public CartItemBO create(final CartItemBO cartItemBO) {
         final CartItem entity =
-                cartItemRepository.save(CartItemsMapper.INSTANCE.cartItemVOToCartItem(cartItemBO));
+                cartItemRepository.save(CartItemsMapper.INSTANCE.cartItemBOToCartItem(cartItemBO));
 
         return cartItemToCartItemVO(entity);
     }
 
     private CartItemBO cartItemToCartItemVO(final CartItem entity) {
-        return CartItemsMapper.INSTANCE.catItemToCartItemVO(entity);
+        return CartItemsMapper.INSTANCE.catItemToCartItemBO(entity);
     }
 
     public CartItemBO findById(final Long cartItemId) {

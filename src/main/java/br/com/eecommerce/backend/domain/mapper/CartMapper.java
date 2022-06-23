@@ -10,7 +10,7 @@ public interface CartMapper {
 
     CartMapper INSTANCE = Mappers.getMapper(CartMapper.class);
 
-    CartBO cartToCartVO(Cart cart);
+    CartBO cartToCartBO(Cart cart);
 
-    Cart cartVOToCart(CartBO cartBO);
+    Cart cartBOToCart(CartBO cartBO);
 }

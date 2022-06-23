@@ -14,13 +14,13 @@ public class CustomerComponent {
     private CustomerRepository customerRepository;
 
     public CustomerBO create(final CustomerBO customerBO) {
-        final Customer entity = customerRepository.save(CustomerMapper.INSTANCE.customerVOToCustomer(customerBO));
+        final Customer entity = customerRepository.save(CustomerMapper.INSTANCE.customerBOToCustomer(customerBO));
 
         return customerToCustomerVO(entity);
     }
 
     private CustomerBO customerToCustomerVO(final Customer entity) {
-        return CustomerMapper.INSTANCE.customerToCustomerVO(entity);
+        return CustomerMapper.INSTANCE.customerToCustomerBO(entity);
     }
 
     public CustomerBO findById(final Long customerId) {

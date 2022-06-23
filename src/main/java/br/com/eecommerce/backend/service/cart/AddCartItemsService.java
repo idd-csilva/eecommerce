@@ -17,9 +17,6 @@ public class AddCartItemsService {
     private CartComponent cartComponent;
 
     @Autowired
-    private CartItemsComponent cartItemsComponent;
-
-    @Autowired
     private ProductComponent productComponent;
 
     public CartBO addItem(final Long cartId, final CartAddItemDto cartAddItemDto) {
