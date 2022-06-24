@@ -43,7 +43,9 @@ public class CartController {
     public ResponseEntity<CartBO> addItemsToCart(
             @PathVariable final Long cartId,
             @RequestBody final CartAddItemDto cartAddItemDto
-    ) {
-        return ResponseEntity.ok(addCartItemsService.addItem(cartId, cartAddItemDto));
+    ) throws RuntimeException {
+        final var a = addCartItemsService.addItem(cartId, cartAddItemDto);
+
+        return ResponseEntity.ok(a);
     }
 }

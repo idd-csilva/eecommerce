@@ -1,16 +1,17 @@
 package br.com.eecommerce.backend.service.cart;
 
 import br.com.eecommerce.backend.domain.component.CartComponent;
-import br.com.eecommerce.backend.domain.component.CartItemsComponent;
 import br.com.eecommerce.backend.domain.component.ProductComponent;
 import br.com.eecommerce.backend.domain.patterns.bo.CartBO;
 import br.com.eecommerce.backend.domain.patterns.bo.CartItemBO;
 import br.com.eecommerce.backend.domain.patterns.bo.ProductBO;
 import br.com.eecommerce.backend.domain.patterns.dto.CartAddItemDto;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class AddCartItemsService {
 
     @Autowired
@@ -31,6 +32,12 @@ public class AddCartItemsService {
         cartBO.addItem(cartItemBO);
         cartBO.calculateAmount(cartItemBO);
 
-        return cartComponent.update(cartBO);
+        final CartBO cartBoUpdated = cartComponent.update(cartBO);
+
+        if (cartBoUpdated.getId() == 5) {
+            throw new RuntimeException();
+        }
+
+        return cartBoUpdated;
     }
 }

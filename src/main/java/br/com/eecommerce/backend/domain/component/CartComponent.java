@@ -4,10 +4,12 @@ import br.com.eecommerce.backend.domain.mapper.CartMapper;
 import br.com.eecommerce.backend.domain.model.Cart;
 import br.com.eecommerce.backend.domain.patterns.bo.CartBO;
 import br.com.eecommerce.backend.domain.repository.CartRepository;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Transactional
 public class CartComponent {
 
     @Autowired

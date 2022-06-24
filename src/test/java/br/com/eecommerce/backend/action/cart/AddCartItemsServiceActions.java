@@ -27,13 +27,6 @@ public class AddCartItemsServiceActions implements Action<CartBO> {
         return this;
     }
 
-    public AddCartItemsServiceActions mockProductFindById(final ProductBO productBO) {
-        BDDMockito.given(productComponent.findById(productBO.getId()))
-                .willReturn(productBO);
-
-        return this;
-    }
-
     public AddCartItemsServiceActions mockCartFindById() {
         BDDMockito.given(cartComponent.findById(AddCartItemsServiceMocks.getCartBO().getId()))
                 .willReturn(AddCartItemsServiceMocks.getCartBO());
@@ -41,23 +34,9 @@ public class AddCartItemsServiceActions implements Action<CartBO> {
         return this;
     }
 
-    public AddCartItemsServiceActions mockCartFindById(final CartBO cartBO) {
-        BDDMockito.given(cartComponent.findById(cartBO.getId()))
-                .willReturn(cartBO);
-
-        return this;
-    }
-
     public AddCartItemsServiceActions mockCartUpdate() {
         BDDMockito.given(cartComponent.update(AddCartItemsServiceMocks.getExpectedCartBO()))
                 .willReturn(AddCartItemsServiceMocks.getExpectedCartBO());
-
-        return this;
-    }
-
-    public AddCartItemsServiceActions mockCartUpdate(final CartBO cartBO) {
-        BDDMockito.given(cartComponent.update(cartBO))
-                .willReturn(cartBO);
 
         return this;
     }
